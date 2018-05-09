@@ -33,20 +33,43 @@ class Proceso:
         self.funcion = funcion
 
     def mi_estado(self):
+        """
+        Este método simplemente nos devuelve el estado del proceso.
+        Se usa como una interfaz del atributo
+        """
         return self.estado
 
     def cuanto_use(self):
+        """
+        Este método nos dice cuántos clocks se va ejecutando hasta ahora.
+        Notar que también es una interfaz del atributo 'ya_use'
+        """
         return self.ya_use
 
     def enviar_pedido(self, mensaje, proc, clocks):
         """
-        mensaje : (arg1, arg2, ..., argN)
+        Este método envía un pedido a cierto proceso. Es decir, le solicita
+        al proceso que ejecute la función que lo caracteriza, con los argumentos
+        que están en "mensaje" y por una cierta cantidad de clocks
+        Devuelve el resultado del pedido.
+
+        Los parámetros de este método son:
+
+        :param mensaje : (arg1, arg2, ..., argN)
+        :param proc: Proceso() [es el proceso al que le vamos a pedir la
+                    ejecución]
+        :param clocks: Int [es la cantidad de clocks que se va a ejecutar la
+                            función que caracteriza al proceso]
         """
+        # Para enviar un pedido, lo que hacemos el llamar al método
+        # recibir_pedido del OTRO proceso, con los parámetros adecuados.
         result = proc.recibir_pedido(self, mensaje, clocks)
         return result
 
     def enviar_resultado(self, proc, mensaje):
         """
+        Éste método envía el resultado (el "mensaje") al proceso correspondiente.
+        
         mensaje: es el resultado que se ha obtenido de evaluar la funcion
         """
         return proc.recibir_resultado(mensaje)
