@@ -27,6 +27,9 @@ funciones_ponderadas = {
 class TestComunicacionProcesos(TestCase):
 
     def test_termino_suma(self):
+        """
+        Calculamos normalmente 1 + 3
+        """
         proceso_padre = Proceso(proc_id=1)
         f_suma = funciones_ponderadas['suma']
         proceso_suma = Proceso(proc_id=2, **f_suma)
@@ -37,6 +40,10 @@ class TestComunicacionProcesos(TestCase):
         self.assertEqual(proceso_suma.estado, 'terminado')
 
     def test_no_termino_prod(self):
+        """
+        Calculamos 4 * 2. Se ejecuta el proceso un rato, no termina, y despues
+        se vuelve a ejecutar y efectivamente termina.
+        """
         proceso_padre = Proceso(proc_id=1)
         f_prod = funciones_ponderadas['prod']
         proceso_prod = Proceso(proc_id=2, **f_prod)
@@ -52,6 +59,9 @@ class TestComunicacionProcesos(TestCase):
         self.assertEqual(proceso_prod.estado, 'terminado')
 
     def test_reset_div(self):
+        """
+        Calculamos 3 / 1. Y reseteamos
+        """
         proceso_padre = Proceso(proc_id=1)
         f_div = funciones_ponderadas['div']
         proceso_div = Proceso(proc_id=2, **f_div)
@@ -67,7 +77,8 @@ class TestComunicacionProcesos(TestCase):
 
     def test_ej_combinado_no_listo(self):
         """
-        20/4 + (4 * 3) + 1
+        Calculamos 20/4 + (4 * 3) + 1. Reutilizamos el proceso de suma, sin
+        antes resetearlo.
         """
         proceso_padre = Proceso(proc_id=1)
         f_suma = funciones_ponderadas['suma']
@@ -86,14 +97,14 @@ class TestComunicacionProcesos(TestCase):
 
         try:
             ret = proceso_padre.enviar_pedido((mi_div, suma_parc), proceso_suma, 5)
+            self.assertTrue(False)
         except ProcesoNoListo:
             self.assertTrue(True)
 
 
-
     def test_ej_combinado(self):
         """
-        20/4 + (4 * 3) + 1
+        Calculamos 20/4 + (4 * 3) + 1
         """
         proceso_padre = Proceso(proc_id=1)
         f_suma = funciones_ponderadas['suma']

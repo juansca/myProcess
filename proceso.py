@@ -33,6 +33,7 @@ class Proceso:
         self.funcion = funcion
 
     def reset(self):
+        # Acá restauramos los valores del Proceso para que pueda volver a ejecutar
         self.estado = "listo"
         self.ya_use = 0
 
