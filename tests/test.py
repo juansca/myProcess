@@ -36,8 +36,8 @@ class TestComunicacionProcesos(TestCase):
         result = proceso_padre.enviar_pedido((1, 3), proceso_suma, 5)
 
         self.assertEqual(result, 4)
-        self.assertEqual(proceso_suma.ya_use, proceso_suma.rafaga)
-        self.assertEqual(proceso_suma.estado, 'terminado')
+        self.assertEqual(proceso_suma.cuanto_use, proceso_suma.rafaga)
+        self.assertEqual(proceso_suma.mi_estado, 'terminado')
 
     def test_no_termino_prod(self):
         """
@@ -50,13 +50,13 @@ class TestComunicacionProcesos(TestCase):
         result = proceso_padre.enviar_pedido((4, 2), proceso_prod, 5)
 
         self.assertEqual(result, None)
-        self.assertEqual(proceso_prod.ya_use + 3, proceso_prod.rafaga)
-        self.assertEqual(proceso_prod.estado, 'listo')
+        self.assertEqual(proceso_prod.cuanto_use + 3, proceso_prod.rafaga)
+        self.assertEqual(proceso_prod.mi_estado, 'listo')
 
         result = proceso_padre.enviar_pedido((4, 2), proceso_prod, 3)
         self.assertEqual(result, 8)
-        self.assertEqual(proceso_prod.ya_use, proceso_prod.rafaga)
-        self.assertEqual(proceso_prod.estado, 'terminado')
+        self.assertEqual(proceso_prod.cuanto_use, proceso_prod.rafaga)
+        self.assertEqual(proceso_prod.mi_estado, 'terminado')
 
     def test_reset_div(self):
         """
@@ -68,12 +68,12 @@ class TestComunicacionProcesos(TestCase):
         result = proceso_padre.enviar_pedido((3, 1), proceso_div, 8)
 
         self.assertEqual(result, 3)
-        self.assertEqual(proceso_div.ya_use, proceso_div.rafaga)
-        self.assertEqual(proceso_div.estado, 'terminado')
+        self.assertEqual(proceso_div.cuanto_use, proceso_div.rafaga)
+        self.assertEqual(proceso_div.mi_estado, 'terminado')
 
         proceso_div.reset()
-        self.assertEqual(proceso_div.ya_use, 0)
-        self.assertEqual(proceso_div.estado, 'listo')
+        self.assertEqual(proceso_div.cuanto_use, 0)
+        self.assertEqual(proceso_div.mi_estado, 'listo')
 
     def test_ej_combinado_no_listo(self):
         """
