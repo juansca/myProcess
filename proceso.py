@@ -33,9 +33,13 @@ class Proceso:
         self.funcion = funcion
 
     def reset(self):
-        # Acá restauramos los valores del Proceso para que pueda volver a ejecutar
-        self.estado = "listo"
-        self.ya_use = 0
+        """
+        Acá restauramos los valores del Proceso para que pueda volver a ejecutar
+        """
+        ####################
+        # Aquí va su código
+        ####################
+        pass
 
     def mi_estado(self):
         """
@@ -66,10 +70,11 @@ class Proceso:
         :param clocks: Int [es la cantidad de clocks que se va a ejecutar la
                             función que caracteriza al proceso]
         """
-        # Para enviar un pedido, lo que hacemos el llamar al método
-        # recibir_pedido del OTRO proceso, con los parámetros adecuados.
-        result = proc.recibir_pedido(self, mensaje, clocks)
-        return result
+        ####################
+        # Aquí va su código
+        ####################
+
+        pass
 
     def enviar_resultado(self, proc, mensaje):
         """
@@ -82,9 +87,11 @@ class Proceso:
         :param mensaje: es el resultado que se ha obtenido de evaluar la
                         funcion
         """
-        # En este método también podría ser que se lleve a cabo el cómputo
-        # de la función correspondiente
-        return proc.recibir_resultado(mensaje)
+        ####################
+        # Aquí va su código
+        ####################
+
+        pass
 
     def recibir_pedido(self, proc, argumentos, clocks):
         """
@@ -101,12 +108,12 @@ class Proceso:
         # Si el proceso no está listo, no puede llevar a cabo el pedido
         if self.estado != "listo":
             raise ProcesoNoListo
-        funcion = self.funcion
 
-        # Se ejecuta la funcion dada, la cantidad de clocks que se correspondan
-        for c in range(min(clocks, self.rafaga - self.ya_use)):
-            result = self.ejecutar(funcion, argumentos)
-        return self.enviar_resultado(proc, result)
+        ####################
+        # Aquí va su código
+        ####################
+
+        pass
 
 
     def recibir_resultado(self, mensaje):
@@ -117,30 +124,35 @@ class Proceso:
         Su parámetro es:
         :param mensaje: resultado del pedido
         """
-        # Simplemente se devuelve (recibe) el mensaje
-        return mensaje
+        ####################
+        # Aquí va su código
+        ####################
+
+        pass
 
 
     def ejecutar(self, funcion, argumentos):
         """Este método ejecuta durante un instante de tiempo el proceso.
-        Mientras el proceso está ejecuntándose, su estado será "ejecutando".
         Una vez que haya finalizado su tiempo de ráfaga, el estado pasará a ser
         "terminado".
 
         IMPORTANTE: Si no termina de ejecutarse, pasa a estar en estado "Listo"
         """
-        # Se ejecuta, durante un clock, el proceso
-        self.ya_use += 1
+        ####################
+        # Aquí va su código
+        ####################
 
         if self.rafaga == self.ya_use:
             # Si se termino de ejecutar, se evalúa la funcion con los
-            # argumentos dados y el estado del proceso pasa a ser 'terminado'.
+            # argumentos dados.
             # En este caso, antes de volver a pedir su ejecución, habría que
             # ejecutar el método del proceso 'reset'.
-            self.estado = "terminado"
+
+            # Falta hacer algo más con el proceso, antes de la próxima línea?
             return funcion(*argumentos)
         else:
-            # Si todavía no se terminó de ejecutar, devuelve None y pasa
-            # al estado listo
-            self.estado = "listo"
+            # Si todavía no se terminó de ejecutar,
+            # devuelve None (es un valor nulo)
+
+            # Falta hacer algo más con el proceso, antes de la próxima línea?
             return None
